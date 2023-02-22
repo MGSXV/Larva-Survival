@@ -45,13 +45,21 @@ export class Game
 		});
 	}
 
-	render(context)
+	checkCollision(objectA, objectB)
 	{
-		this.player.draw(context);
-		this.player.update();
-		this.obstacles.forEach(obstacle => obstacle.draw(context));
+		const	deltaX = objectA.collisionX - objectB.collisionX;
+		const	deltaY = objectA.collisionY - objectB.collisionY;
+		const	distance = Math.hypot(deltaY, deltaX);
+		const	sumOfRadius = objectA.collisionRadius + objectB.collisionRadius;
+		return {
+			'isColliding': (distance < sumOfRadius),
+			'distance': distance,
+			'sumOfRadius': sumOfRadius,
+			'deltaX': deltaX,
+			'deltaY': deltaY
+		};
 	}
-
+	
 	initObstacles()
 	{
 		let		attempts = 0;
@@ -75,6 +83,13 @@ export class Game
 				this.obstacles.push(testObstacle);
 			attempts++;
 		}
+	}
+
+	render(context)
+	{
+		this.obstacles.forEach(obstacle => obstacle.draw(context));
+		this.player.draw(context);
+		this.player.update();
 	}
 
 	init()
