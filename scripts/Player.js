@@ -7,7 +7,7 @@ export class Player extends Object
 		super(game);
 		super.collisionX = this.game.width * .5;
 		super.collisionY = this.game.height * .5;
-		super.collisionRadius = 30;
+		super.collisionRadius = 50;
 		super.speedModifier = 30;
 		super.image = document.getElementById('bull');
 		this.spriteWidth = 255;
@@ -15,7 +15,7 @@ export class Player extends Object
 		super.width = this.spriteWidth;
 		super.height = this.spriteHeight;
 		super.spriteX = this.collisionX - this.width * .5;
-		super.spriteY = this.collisionY - this.height * .5 - 100;
+		super.spriteY = this.collisionY - this.height * .5 - 70;
 	}
 
 	draw(context)
@@ -68,10 +68,17 @@ export class Player extends Object
 		}
 		this.collisionX += this.speedX * this.speedModifier;
 		this.collisionY += this.speedY * this.speedModifier;
-		
+		if (this.collisionX < this.collisionRadius)
+			this.collisionX = this.collisionRadius;
+		else if (this.collisionX > this.game.width - this.collisionRadius)
+			this.collisionX = this.game.width - this.collisionRadius;
+		if (this.collisionY < this.game.topMargin + this.collisionRadius)
+			this.collisionY = this.game.topMargin + this.collisionRadius
+		else if (this.collisionY > this.game.height - this.collisionRadius)
+			this.collisionY = this.game.height - this.collisionRadius
 		this.obstacleCollisionHandler();
 		super.spriteX = this.collisionX - this.width * .5;
-		super.spriteY = this.collisionY - this.height * .5 - 100;
+		super.spriteY = this.collisionY - this.height * .5 - 70;
 		this.updatePlayerImage();
 	}
 }

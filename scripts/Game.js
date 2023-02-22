@@ -17,7 +17,7 @@ export class Game
 		}
 		this.player = new Player(this);
 		this.obstacles = [];
-		this.debugMode = true;
+		this.debugMode = false;
 
 		/*
 		Event handlers:
