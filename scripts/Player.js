@@ -5,9 +5,9 @@ export class Player extends Object
 	constructor(game)
 	{
 		super(game);
-		super.collisionX = this.game.width * .5;
-		super.collisionY = this.game.height * .5;
-		super.collisionRadius = 30;
+		this.collisionX = this.game.width * .5;
+		this.collisionY = this.game.height * .5;
+		this.collisionRadius = 30;
 		this.speedModifier = 50;
 	}
 
