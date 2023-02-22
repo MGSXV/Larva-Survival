@@ -18,6 +18,9 @@ export class Game
 		this.player = new Player(this);
 		this.obstacles = [];
 		this.debugMode = false;
+		this.fps = 90;
+		this.timer = 0;
+		this.interval = 1000 / this.fps;
 
 		/*
 		Event handlers:
@@ -90,11 +93,17 @@ export class Game
 		}
 	}
 
-	render(context)
+	render(context, deltaTime)
 	{
-		this.obstacles.forEach(obstacle => obstacle.draw(context));
-		this.player.draw(context);
-		this.player.update();
+		if (this.timer > this.interval)
+		{
+			context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+			this.obstacles.forEach(obstacle => obstacle.draw(context));
+			this.player.draw(context);
+			this.player.update();
+			this.timer = 0;
+		}
+		this.timer += deltaTime;
 	}
 
 	init()
