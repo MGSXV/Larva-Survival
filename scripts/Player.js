@@ -14,11 +14,13 @@ export class Player extends Object
 		this.spriteHeight = 255;
 		super.width = this.spriteWidth;
 		super.height = this.spriteHeight;
+		super.spriteX = this.collisionX - this.width * .5;
+		super.spriteY = this.collisionY - this.height * .5 - 100;
 	}
 
 	draw(context)
 	{
-		context.drawImage(this.image, this.collisionX, this.collisionY);
+		context.drawImage(this.image, this.frameX * this.spriteWidth, this.frameY * this.spriteHeight, this.spriteWidth, this.spriteHeight, this.spriteX, this.spriteY, this.width, this.height);
 		super.draw(context);
 		context.beginPath();
 		context.moveTo(this.collisionX, this.collisionY);
@@ -40,6 +42,19 @@ export class Player extends Object
 		});
 	}
 
+	updatePlayerImage()
+	{
+		const	angle = Math.atan2(this.deltaY, this.deltaX);
+		if (angle < -2.74 || angle > 2.74) this.frameY = 6;
+		else if (angle < -1.96) this.frameY = 7;
+		else if (angle < -1.17) this.frameY = 0;
+		else if (angle < -.39) this.frameY = 1;
+		else if (angle < .39) this.frameY = 2;
+		else if (angle < 1.17) this.frameY = 3;
+		else if (angle < 1.96) this.frameY = 4;
+		else if (angle < 2.74) this.frameY = 5;
+	}
+
 	update()
 	{
 		this.deltaX = this.game.mouse.x - this.collisionX;
@@ -57,7 +72,10 @@ export class Player extends Object
 		}
 		this.collisionX += this.speedX * this.speedModifier;
 		this.collisionY += this.speedY * this.speedModifier;
-
+		
 		this.obstacleCollisionHandler();
+		super.spriteX = this.collisionX - this.width * .5;
+		super.spriteY = this.collisionY - this.height * .5 - 100;
+		this.updatePlayerImage();
 	}
 }
