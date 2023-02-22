@@ -11,10 +11,11 @@ window.addEventListener('load', function() {
 	context.strokeStyle = 'white';
 
 	const	game = new Game(canvas);
-	console.log(game);
-	game.render(context);
 	function	animate()
 	{
-
+		context.clearRect(0, 0, canvas.width, canvas.height);
+		game.render(context);
+		requestAnimationFrame(animate);
 	}
+	animate();
 });
