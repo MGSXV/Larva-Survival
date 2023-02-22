@@ -1,4 +1,5 @@
 import { Player } from "./Player.js";
+import { Obstacle } from "./Obstacle.js";
 
 export class Game
 {
@@ -7,6 +8,8 @@ export class Game
 		this.canvas = canvas;
 		this.width = this.canvas.width;
 		this.height = this.canvas.height;
+		this.obstables = [];
+		this.numberOfObstables = 5;
 		this.mouse = {
 			x: this.width * 0.5,
 			y: this.height * 0.5,
@@ -45,5 +48,14 @@ export class Game
 	{
 		this.player.draw(context);
 		this.player.update();
+		this.obstables.forEach(obstacle => obstacle.draw(context));
+	}
+
+	init()
+	{
+		for (let i = 0; i < this.numberOfObstables; i++)
+		{
+			this.obstables.push(new Obstacle(this));
+		}
 	}
 }

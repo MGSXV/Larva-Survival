@@ -11,6 +11,7 @@ window.addEventListener('load', function() {
 	context.strokeStyle = 'white';
 
 	const	game = new Game(canvas);
+	game.init();
 	function	animate()
 	{
 		context.clearRect(0, 0, canvas.width, canvas.height);
