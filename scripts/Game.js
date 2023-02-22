@@ -8,8 +8,7 @@ export class Game
 		this.canvas = canvas;
 		this.width = this.canvas.width;
 		this.height = this.canvas.height;
-		this.obstacles = [];
-		this.numberOfobstacles = 4;
+		this.numberOfobstacles = 5;
 		this.topMargin = 260;
 		this.mouse = {
 			x: this.width * 0.5,
@@ -17,6 +16,8 @@ export class Game
 			down: false
 		}
 		this.player = new Player(this);
+		this.obstacles = [];
+		this.debugMode = true;
 
 		/*
 		Event handlers:
@@ -42,6 +43,10 @@ export class Game
 				this.mouse.x = e.offsetX;
 				this.mouse.y = e.offsetY;
 			}
+		});
+		window.addEventListener('keypress', e => {
+			if (e.key == 'd')
+				this.debugMode = !this.debugMode;
 		});
 	}
 

@@ -23,13 +23,20 @@ export class Object
 
 	draw(context)
 	{
-		context.beginPath();
-		context.arc(this.collisionX, this.collisionY, this.collisionRadius, 0, Math.PI * 2);
-		context.save();
-		context.globalAlpha = .5;
-		context.fill();
-		context.restore();
-		context.stroke();
+		if (this.game.debugMode)
+		{
+			context.beginPath();
+			context.arc(this.collisionX, this.collisionY, this.collisionRadius, 0, Math.PI * 2);
+			context.save();
+			context.globalAlpha = .5;
+			context.fill();
+			context.restore();
+			context.stroke();
+			context.beginPath();
+			context.moveTo(this.collisionX, this.collisionY);
+			context.lineTo(this.game.mouse.x, this.game.mouse.y);
+			context.stroke();
+		}
 	}
 	update()
 	{

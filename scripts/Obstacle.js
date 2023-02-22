@@ -7,14 +7,14 @@ export class Obstacle extends Object
 		super(game);
 		super.collisionX = Math.random() * this.game.width;
 		super.collisionY = Math.random() * this.game.height;
-		super.collisionRadius = 50;
+		super.collisionRadius = 30;
 		super.image = document.getElementById('obstacles');
 		super.spriteWidth = 250;
 		super.spriteHeight = 250;
 		super.width = this.spriteWidth;
 		super.height = this.spriteHeight;
 		super.spriteX = this.collisionX - this.width * .5;
-		super.spriteY = this.collisionY - this.width * .5 - 70;
+		super.spriteY = this.collisionY - this.width * .5 - 80;
 		super.frameX = Math.floor(Math.random() * 4);
 		super.frameY = Math.floor(Math.random() * 3);
 	}
