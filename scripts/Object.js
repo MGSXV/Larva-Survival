@@ -17,6 +17,8 @@ export class Object
 		this.height = this.spriteHeight;
 		this.spriteX = 0;
 		this.spriteY = 0;
+		this.frameX = 0;
+		this.frameY = 0;
 	}
 
 	draw(context)

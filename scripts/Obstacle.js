@@ -15,8 +15,8 @@ export class Obstacle extends Object
 		super.height = this.spriteHeight;
 		super.spriteX = this.collisionX - this.width * .5;
 		super.spriteY = this.collisionY - this.width * .5 - 70;
-		this.frameX = Math.floor(Math.random() * 4);
-		this.frameY = Math.floor(Math.random() * 3);
+		super.frameX = Math.floor(Math.random() * 4);
+		super.frameY = Math.floor(Math.random() * 3);
 	}
 
 	draw(context)
