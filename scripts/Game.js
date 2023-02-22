@@ -1,5 +1,6 @@
 import { Player } from "./Player.js";
 import { Obstacle } from "./Obstacle.js";
+import { Egg } from "./Egg.js";
 
 export class Game
 {
@@ -8,7 +9,6 @@ export class Game
 		this.canvas = canvas;
 		this.width = this.canvas.width;
 		this.height = this.canvas.height;
-		this.numberOfobstacles = 5;
 		this.topMargin = 260;
 		this.mouse = {
 			x: this.width * 0.5,
@@ -17,6 +17,11 @@ export class Game
 		}
 		this.player = new Player(this);
 		this.obstacles = [];
+		this.numberOfobstacles = 5;
+		this.eggs = [];
+		this.maxEggs = 10;
+		this.eggTimer = 0;
+		this.eggInerval = 500;
 		this.debugMode = false;
 		this.fps = 90;
 		this.timer = 0;
@@ -93,17 +98,30 @@ export class Game
 		}
 	}
 
+	addNewEgg(deltaTime)
+	{
+		if (this.eggTimer > this.eggInerval && this.eggs.length < this.maxEggs)
+		{
+			this.eggs.push(new Egg(this));
+			this.eggTimer = 0;
+		}
+		else
+			this.eggTimer += deltaTime;
+	}
+
 	render(context, deltaTime)
 	{
 		if (this.timer > this.interval)
 		{
 			context.clearRect(0, 0, this.canvas.width, this.canvas.height);
 			this.obstacles.forEach(obstacle => obstacle.draw(context));
+			this.eggs.forEach(egg => egg.draw(context));
 			this.player.draw(context);
 			this.player.update();
 			this.timer = 0;
 		}
 		this.timer += deltaTime;
+		this.addNewEgg(deltaTime);
 	}
 
 	init()
