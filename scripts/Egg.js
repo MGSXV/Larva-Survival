@@ -23,4 +23,21 @@ export class Egg extends Object
 		context.drawImage(this.image, this.spriteX, this.spriteY);
 		super.draw(context);
 	}
+
+	update()
+	{
+		let	collisionObjects = [this.game.player, ...this.game.obstacles];
+		super.spriteX = this.collisionX - this.width * .5;
+		super.spriteY = this.collisionY - this.width * .5 - 30;
+		collisionObjects.forEach(object => {
+			let	collisionInfo = this.game.checkCollision(this, object);
+			if (collisionInfo['isColliding'])
+			{
+				const	unit_x = collisionInfo['deltaX'] / collisionInfo['distance'];
+				const	unit_y = collisionInfo['deltaY'] / collisionInfo['distance'];
+				this.collisionX = object.collisionX + (collisionInfo['sumOfRadius'] + 1) * unit_x;
+				this.collisionY = object.collisionY + (collisionInfo['sumOfRadius'] + 1) * unit_y;
+			}
+		});
+	}
 }
