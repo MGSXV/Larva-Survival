@@ -8,8 +8,8 @@ export class Game
 		this.canvas = canvas;
 		this.width = this.canvas.width;
 		this.height = this.canvas.height;
-		this.obstables = [];
-		this.numberOfObstables = 5;
+		this.obstacles = [];
+		this.numberOfobstacles = 45;
 		this.mouse = {
 			x: this.width * 0.5,
 			y: this.height * 0.5,
@@ -48,14 +48,33 @@ export class Game
 	{
 		this.player.draw(context);
 		this.player.update();
-		this.obstables.forEach(obstacle => obstacle.draw(context));
+		this.obstacles.forEach(obstacle => obstacle.draw(context));
+	}
+
+	initObstacles()
+	{
+		let		attempts = 0;
+		const	MAX_ATTEMPTS = 500;
+		while (attempts < MAX_ATTEMPTS && this.obstacles.length < this.numberOfobstacles)
+		{
+			let	testObstacle = new Obstacle(this);
+			let	isOverlap = false;
+			this.obstacles.forEach(obstacle => {
+				const	dx = testObstacle.collisionX - obstacle.collisionX;
+				const	dy = testObstacle.collisionY - obstacle.collisionY;
+				const	distance = Math.hypot(dy, dx);
+				const	sumOfRadius = testObstacle.collisionRadius + obstacle.collisionRadius;
+				if (distance < sumOfRadius)
+					isOverlap = true;
+			});
+			if (!isOverlap)
+				this.obstacles.push(testObstacle);
+			attempts++;
+		}
 	}
 
 	init()
 	{
-		for (let i = 0; i < this.numberOfObstables; i++)
-		{
-			this.obstables.push(new Obstacle(this));
-		}
+		this.initObstacles();
 	}
 }
