@@ -27,6 +27,8 @@ export class Game
 		this.enemies = [];
 		this.maxEnemies = 5;
 		this.hatchlings = [];
+		this.lostHatchlings = 0;
+		this.score = 0;
 		this.debugMode = false;
 		this.fps = 90;
 		this.timer = 0;
