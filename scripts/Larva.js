@@ -1,4 +1,6 @@
 import { Object } from "./Object.js";
+import { Firefly } from "./Particle.js";
+import { Spark } from "./Particle.js";
 
 export class Larva extends Object
 {
@@ -33,6 +35,8 @@ export class Larva extends Object
 			this.markedForDeletion = true;
 			this.game.removeGameObject();
 			this.game.score++;
+			for (let i = 0; i < 3; i++)
+				this.game.particles.push(new Firefly(this.game, this.collisionX, this.collisionY, 'yellow'));
 		}
 		let	collisionObjects = [this.game.player, ...this.game.obstacles, ...this.game.eggs];
 		super.spriteX = this.collisionX - this.width * .5;
@@ -53,6 +57,8 @@ export class Larva extends Object
 				this.markedForDeletion = true;
 				this.game.removeGameObject();
 				this.game.lostHatchlings++;
+				for (let i = 0; i < 3; i++)
+					this.game.particles.push(new Spark(this.game, this.collisionX, this.collisionY, 'green'));
 			}
 		});
 	}

@@ -8,7 +8,7 @@ window.addEventListener('load', function() {
 	canvas.height = 720;
 	context.fillStyle = 'white';
 	context.lineWidth = 3;
-	context.strokeStyle = 'white';
+	context.strokeStyle = 'black';
 	context.font = '40px Helvetica';
 	context.textAlign = 'center';
 

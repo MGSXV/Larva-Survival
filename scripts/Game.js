@@ -27,6 +27,7 @@ export class Game
 		this.enemies = [];
 		this.maxEnemies = 5;
 		this.hatchlings = [];
+		this.particles = [];
 		this.lostHatchlings = 0;
 		this.score = 0;
 		this.debugMode = false;
@@ -125,6 +126,7 @@ export class Game
 	{
 		this.eggs = this.eggs.filter(egg => !egg.markedForDeletion);
 		this.hatchlings = this.hatchlings.filter(hatchling => !hatchling.markedForDeletion);
+		this.particles = this.particles.filter(particle => !particle.markedForDeletion);
 	}
 
 	render(context, deltaTime)
@@ -132,7 +134,7 @@ export class Game
 		if (this.timer > this.interval)
 		{
 			context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-			this.gameObjects = [...this.eggs, ...this.obstacles, this.player, ...this.enemies, ...this.hatchlings];
+			this.gameObjects = [...this.eggs, ...this.obstacles, this.player, ...this.enemies, ...this.hatchlings, ...this.particles];
 			this.gameObjects.sort((a, b) => { return (a.collisionY - b.collisionY); });
 			this.gameObjects.forEach(object => {
 				object.draw(context);
