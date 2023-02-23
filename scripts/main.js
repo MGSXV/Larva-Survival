@@ -9,6 +9,8 @@ window.addEventListener('load', function() {
 	context.fillStyle = 'white';
 	context.lineWidth = 3;
 	context.strokeStyle = 'white';
+	context.font = '40px Helvetica';
+	context.textAlign = 'center';
 
 	const	game = new Game(canvas);
 	game.init();
