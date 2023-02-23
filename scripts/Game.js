@@ -19,9 +19,10 @@ export class Game
 		this.obstacles = [];
 		this.numberOfobstacles = 5;
 		this.eggs = [];
-		this.maxEggs = 10;
+		this.maxEggs = 20;
 		this.eggTimer = 0;
-		this.eggInerval = 500;
+		this.eggInerval = 1000;
+		this.gameObjects = [];
 		this.debugMode = false;
 		this.fps = 90;
 		this.timer = 0;
@@ -114,13 +115,15 @@ export class Game
 		if (this.timer > this.interval)
 		{
 			context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-			this.obstacles.forEach(obstacle => obstacle.draw(context));
-			this.eggs.forEach(egg => {
-				egg.draw(context);
-				egg.update();
+			this.gameObjects = [...this.eggs, ...this.obstacles, this.player];
+			// this.obstacles.forEach(obstacle => obstacle.draw(context));
+			this.gameObjects.sort((a, b) => { return (a.collisionY - b.collisionY); });
+			this.gameObjects.forEach(object => {
+				object.draw(context);
+				object.update();
 			});
-			this.player.draw(context);
-			this.player.update();
+			// this.player.draw(context);
+			// this.player.update();
 			this.timer = 0;
 		}
 		this.timer += deltaTime;
