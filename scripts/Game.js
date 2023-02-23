@@ -20,12 +20,13 @@ export class Game
 		this.obstacles = [];
 		this.numberOfobstacles = 5;
 		this.eggs = [];
-		this.maxEggs = 20;
+		this.maxEggs = 5;
 		this.eggTimer = 0;
 		this.eggInerval = 1000;
 		this.gameObjects = [];
 		this.enemies = [];
-		this.maxEnemies = 6;
+		this.maxEnemies = 5;
+		this.hatchlings = [];
 		this.debugMode = false;
 		this.fps = 90;
 		this.timer = 0;
@@ -118,16 +119,22 @@ export class Game
 		this.enemies.push(new Enemy(this));
 	}
 
+	removeGameObject()
+	{
+		this.eggs = this.eggs.filter(egg => !egg.markedForDeletion);
+		this.hatchlings = this.hatchlings.filter(hatchling => !hatchling.markedForDeletion);
+	}
+
 	render(context, deltaTime)
 	{
 		if (this.timer > this.interval)
 		{
 			context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-			this.gameObjects = [...this.eggs, ...this.obstacles, this.player, ...this.enemies];
+			this.gameObjects = [...this.eggs, ...this.obstacles, this.player, ...this.enemies, ...this.hatchlings];
 			this.gameObjects.sort((a, b) => { return (a.collisionY - b.collisionY); });
 			this.gameObjects.forEach(object => {
 				object.draw(context);
-				object.update();
+				object.update(deltaTime);
 			});
 			this.timer = 0;
 		}
@@ -141,7 +148,6 @@ export class Game
 		for (let i = 0; i < this.maxEnemies; i++)
 		{
 			this.addNewEnemy();
-			console.log(this.enemies)
 		}
 	}
 }
