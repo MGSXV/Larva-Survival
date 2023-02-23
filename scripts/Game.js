@@ -116,14 +116,11 @@ export class Game
 		{
 			context.clearRect(0, 0, this.canvas.width, this.canvas.height);
 			this.gameObjects = [...this.eggs, ...this.obstacles, this.player];
-			// this.obstacles.forEach(obstacle => obstacle.draw(context));
 			this.gameObjects.sort((a, b) => { return (a.collisionY - b.collisionY); });
 			this.gameObjects.forEach(object => {
 				object.draw(context);
 				object.update();
 			});
-			// this.player.draw(context);
-			// this.player.update();
 			this.timer = 0;
 		}
 		this.timer += deltaTime;
