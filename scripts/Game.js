@@ -142,6 +142,10 @@ export class Game
 		}
 		this.timer += deltaTime;
 		this.addNewEgg(deltaTime);
+		context.save();
+		context.textAlign = 'left';
+		context.fillText('Score: ' + this.score, 25, 50);
+		context.restore();
 	}
 
 	init()

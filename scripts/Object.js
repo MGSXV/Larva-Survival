@@ -36,6 +36,10 @@ export class Object
 			context.moveTo(this.collisionX, this.collisionY);
 			context.lineTo(this.game.mouse.x, this.game.mouse.y);
 			context.stroke();
+			context.save();
+			context.textAlign = 'left';
+			context.fillText('Lost: ' + this.game.lostHatchlings, 25, 100);
+			context.restore();
 		}
 	}
 	update()
