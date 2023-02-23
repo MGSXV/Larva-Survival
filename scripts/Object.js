@@ -5,7 +5,7 @@ export class Object
 		this.game = game;
 		this.collisionX = 0;
 		this.collisionY = 0;
-		this.collisionRadius = 1;
+		this.collisionRadius = 30;
 		this.speedX = 0;
 		this.speedY = 0;
 		this.deltaX = 0;
