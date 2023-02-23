@@ -13,7 +13,6 @@ export class Enemy extends Object
 		super.height = this.spriteHeight;
 		this.collisionX = this.game.width + this.width + Math.random() * this.game.width * .5;
 		super.collisionY = this.game.topMargin + Math.random() * (this.game.height - this.game.topMargin);
-		super.frameX = Math.floor(Math.random() * 4);
 		super.frameY = Math.floor(Math.random() * 4);
 	}
 
