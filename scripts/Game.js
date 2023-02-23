@@ -1,6 +1,7 @@
 import { Player } from "./Player.js";
 import { Obstacle } from "./Obstacle.js";
 import { Egg } from "./Egg.js";
+import { Enemy } from "./Enemy.js";
 
 export class Game
 {
@@ -23,6 +24,8 @@ export class Game
 		this.eggTimer = 0;
 		this.eggInerval = 1000;
 		this.gameObjects = [];
+		this.enemies = [];
+		this.maxEnemies = 6;
 		this.debugMode = false;
 		this.fps = 90;
 		this.timer = 0;
@@ -110,12 +113,17 @@ export class Game
 			this.eggTimer += deltaTime;
 	}
 
+	addNewEnemy()
+	{
+		this.enemies.push(new Enemy(this));
+	}
+
 	render(context, deltaTime)
 	{
 		if (this.timer > this.interval)
 		{
 			context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-			this.gameObjects = [...this.eggs, ...this.obstacles, this.player];
+			this.gameObjects = [...this.eggs, ...this.obstacles, this.player, ...this.enemies];
 			this.gameObjects.sort((a, b) => { return (a.collisionY - b.collisionY); });
 			this.gameObjects.forEach(object => {
 				object.draw(context);
@@ -130,5 +138,10 @@ export class Game
 	init()
 	{
 		this.initObstacles();
+		for (let i = 0; i < this.maxEnemies; i++)
+		{
+			this.addNewEnemy();
+			console.log(this.enemies)
+		}
 	}
 }

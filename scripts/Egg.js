@@ -26,7 +26,7 @@ export class Egg extends Object
 
 	update()
 	{
-		let	collisionObjects = [this.game.player, ...this.game.obstacles];
+		let	collisionObjects = [this.game.player, ...this.game.obstacles, ...this.game.enemies];
 		super.spriteX = this.collisionX - this.width * .5;
 		super.spriteY = this.collisionY - this.width * .5 - 30;
 		collisionObjects.forEach(object => {
